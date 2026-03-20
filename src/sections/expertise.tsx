@@ -74,6 +74,22 @@ function Expertise() {
             </p>
           </article>
 
+          <article className="h-full w-full rounded-3xl border border-[#6effc8]/15 bg-[#0f111b]/80 p-6 backdrop-blur-sm">
+            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#6ec8ff]">Leadership</p>
+            <h3 className="mt-4 text-xl font-semibold text-[#e8e8f0]">Technical Leadership</h3>
+            <p className="mt-3 text-sm leading-relaxed text-[#7070a0]">
+              Experience leading teams, aligning development goals, and helping projects move forward with clear direction and accountability.
+            </p>
+          </article>
+
+          <article className="h-full w-full rounded-3xl border border-[#6effc8]/15 bg-[#0f111b]/80 p-6 backdrop-blur-sm">
+            <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#ffd36e]">Project Management</p>
+            <h3 className="mt-4 text-xl font-semibold text-[#e8e8f0]">Project Coordination</h3>
+            <p className="mt-3 text-sm leading-relaxed text-[#7070a0]">
+              Comfortable planning timelines, organizing deliverables, and coordinating execution to keep projects on track from start to launch.
+            </p>
+          </article>
+
 
           <article className="h-full w-full rounded-3xl border border-[#6effc8]/15 bg-[#0f111b]/80 p-6 backdrop-blur-sm">
             <p className="font-mono text-[11px] uppercase tracking-[0.25em] text-[#ffd36e]">Workflow</p>
