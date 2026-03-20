@@ -1,13 +1,6 @@
-import emailjs from '@emailjs/browser'
 import { useState } from 'react'
 
-const emailJsServiceId = import.meta.env.VITE_EMAILJS_SERVICE_ID
-const emailJsTemplateId = import.meta.env.VITE_EMAILJS_TEMPLATE_ID
-const emailJsPublicKey = import.meta.env.VITE_EMAILJS_PUBLIC_KEY
-
-const hasEmailJsPlaceholders = [emailJsServiceId, emailJsTemplateId, emailJsPublicKey].some(
-  (value) => !value || value.startsWith('your_'),
-)
+const recipientEmail = 'altr.reniedo.up@phinmaed.com'
 
 type FormValues = {
   firstName: string
@@ -24,8 +17,6 @@ function Contact() {
     message: '',
   })
   const [errorMessage, setErrorMessage] = useState('')
-  const [successMessage, setSuccessMessage] = useState('')
-  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const isFormComplete = Object.values(formValues).every((value) => value.trim() !== '')
 
@@ -38,13 +29,9 @@ function Contact() {
     if (errorMessage) {
       setErrorMessage('')
     }
-
-    if (successMessage) {
-      setSuccessMessage('')
-    }
   }
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 
     if (!isFormComplete) {
@@ -58,45 +45,17 @@ function Contact() {
       return
     }
 
-    if (hasEmailJsPlaceholders) {
-      setErrorMessage('EmailJS is not configured yet. Replace the placeholder values in your .env file and restart the Vite server.')
-      return
-    }
-
     const fullName = `${formValues.firstName.trim()} ${formValues.lastName.trim()}`
+    const subject = `Portfolio inquiry from ${fullName}`
+    const body = [
+      `Name: ${fullName}`,
+      `Email: ${formValues.email.trim()}`,
+      '',
+      'Message:',
+      formValues.message.trim(),
+    ].join('\n')
 
-    try {
-      setIsSubmitting(true)
-      setErrorMessage('')
-      setSuccessMessage('')
-
-      await emailjs.send(
-        emailJsServiceId,
-        emailJsTemplateId,
-        {
-          from_name: fullName,
-          from_email: formValues.email.trim(),
-          message: formValues.message.trim(),
-          reply_to: formValues.email.trim(),
-          to_email: 'altr.reniedo.up@phinmaed.com',
-        },
-        {
-          publicKey: emailJsPublicKey,
-        },
-      )
-
-      setSuccessMessage('Your message has been sent successfully.')
-      setFormValues({
-        firstName: '',
-        lastName: '',
-        email: '',
-        message: '',
-      })
-    } catch {
-      setErrorMessage('Message sending failed. Check your EmailJS service ID, template ID, public key, and template variables, then try again.')
-    } finally {
-      setIsSubmitting(false)
-    }
+    window.location.href = `mailto:${recipientEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
   }
 
   return (
@@ -247,17 +206,13 @@ function Contact() {
                 <p className="mt-4 text-sm text-[#ff8a8a]">{errorMessage}</p>
               ) : null}
 
-              {successMessage ? (
-                <p className="mt-4 text-sm text-[#6effc8]">{successMessage}</p>
-              ) : null}
-
               <div className="mt-5 flex justify-end">
                 <button
                   type="submit"
                   className="inline-flex items-center justify-center rounded-lg bg-[#6effc8] px-6 py-3 text-[13px] font-semibold uppercase tracking-[0.18em] text-[#080810] transition-all duration-150 hover:-translate-y-0.5 hover:shadow-[0_0_24px_rgba(110,255,200,0.28)] disabled:cursor-not-allowed disabled:bg-[#6effc8]/60 disabled:shadow-none"
-                  disabled={!isFormComplete || isSubmitting}
+                  disabled={!isFormComplete}
                 >
-                  {isSubmitting ? 'Sending...' : 'Send Message'}
+                  Send Message
                 </button>
               </div>
             </form>
