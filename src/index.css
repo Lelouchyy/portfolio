@@ -38,6 +38,7 @@ html {
 }
 
 .marquee-wrap {
+  --marquee-duration: 25s;
   width: 100%;
   overflow: hidden;
   border-top: 1px solid rgba(110, 255, 200, 0.16);
@@ -49,13 +50,17 @@ html {
 
 .marquee-track {
   display: flex;
+  width: max-content;
+  min-width: max-content;
   gap: 48px;
-  animation: marquee 25s linear infinite;
+  animation: marquee var(--marquee-duration) linear infinite;
   white-space: nowrap;
+  will-change: transform;
 }
 
 .marquee-item {
   display: flex;
+  flex: 0 0 auto;
   align-items: center;
   gap: 16px;
   font-size: 13px;
@@ -75,4 +80,21 @@ html {
 @keyframes marquee {
   from { transform: translateX(0); }
   to { transform: translateX(-50%); }
+}
+
+@media (max-width: 640px) {
+  .marquee-wrap {
+    --marquee-duration: 20s;
+    padding: 14px 0;
+  }
+
+  .marquee-track {
+    gap: 32px;
+  }
+
+  .marquee-item {
+    gap: 12px;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+  }
 }
