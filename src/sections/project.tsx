@@ -1,5 +1,11 @@
 import projectPlaceholder from '../assets/pic18.jpeg'
 
+const showcaseStats = [
+  { value: '8', label: 'Projects' },
+  { value: 'Web + Mobile', label: 'Build focus' },
+  { value: 'Laravel / React', label: 'Main stack' },
+] as const
+
 const projects = [
    {
     category: 'Digital Community System',
@@ -45,17 +51,17 @@ const projects = [
     image: projectPlaceholder,
   },
    {
-    category: 'Atendance Management System',
-    title: '  HK Logbook',
+    category: 'Attendance Management System',
+    title: 'HK Logbook',
     accent: '#6ec8ff',
     tags: ['Website', 'Tailwind CSS','Laravel',  'MySQL', 'React'],
     image: projectPlaceholder,
   },
      {
     category: 'Water Refill Management System',
-    title: '  AquaSweet',
+    title: 'AquaSweet',
     accent: '#6ec8ff',
-    tags: ['HTHML', 'CSS', 'PHP', 'MySQL'],
+    tags: ['HTML', 'CSS', 'PHP', 'MySQL'],
     image: projectPlaceholder,
   },
    
@@ -69,14 +75,14 @@ function ProjectPreview({ image, title, accent }: { image: string; title: string
       <img
         src={image}
         alt={`${title} project preview`}
-        className="absolute inset-x-3 bottom-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)] rounded-[1.5rem] border border-white/10 object-cover object-top shadow-2xl group-hover:blur-[3px]"
+        className="absolute inset-x-3 bottom-3 h-[calc(100%-1.5rem)] w-[calc(100%-1.5rem)] rounded-[1.5rem] border border-white/10 object-cover object-top shadow-2xl transition-transform duration-300 group-hover:scale-[1.03] group-hover:blur-[2px]"
       />
       <div className="absolute inset-x-3 bottom-3 h-20 rounded-b-[1.5rem] bg-gradient-to-t from-[#0b0c12]/80 to-transparent" />
       <div className="absolute inset-x-3 bottom-3 top-3 rounded-[1.5rem] bg-[linear-gradient(180deg,rgba(7,9,14,0.2),rgba(7,9,14,0.78))] opacity-0 backdrop-blur-0 group-hover:opacity-100 group-hover:backdrop-blur-sm" />
       <div className="absolute inset-x-3 bottom-3 top-3 rounded-[1.5rem] opacity-0 group-hover:opacity-100" style={{ boxShadow: `inset 0 0 0 1px ${accent}33` }} />
       <div className="pointer-events-none absolute inset-x-3 bottom-3 top-3 flex items-center justify-center">
-        <span className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-white/25 bg-[#11131b]/80 px-5 py-2.5 text-center font-mono text-[10px] uppercase tracking-[0.28em] text-white opacity-0 shadow-[0_10px_30px_rgba(0,0,0,0.32)] backdrop-blur-xl group-hover:opacity-100">
-          Click to <br />view project
+        <span className="inline-flex items-center justify-center whitespace-nowrap rounded-full border border-white/25 bg-[#11131b]/80 px-5 py-2.5 text-center font-mono text-[10px] uppercase tracking-[0.28em] text-white opacity-0 shadow-[0_10px_30px_rgba(0,0,0,0.32)] backdrop-blur-xl transition-opacity duration-300 group-hover:opacity-100">
+          View Project
         </span>
       </div>
     </div>
@@ -132,19 +138,35 @@ function Project() {
             implementation, and delivery. Each card represents a real build focus,
             from interface work to backend logic and mobile development.
           </p>
+
+          <div className="mt-8 grid gap-3 sm:grid-cols-3">
+            {showcaseStats.map((item) => (
+              <div
+                key={item.label}
+                className="rounded-2xl border border-white/8 bg-[#0d1118]/80 px-4 py-4 backdrop-blur-sm"
+              >
+                <p className="font-mono text-[11px] uppercase tracking-[0.18em] text-[#6effc8]">
+                  {item.label}
+                </p>
+                <p className="mt-2 text-sm font-medium text-[#dfe3ef]">{item.value}</p>
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="grid items-stretch gap-6 md:grid-cols-2 2xl:grid-cols-4">
           {projects.map((project) => (
             <article
               key={project.title}
-              className="group flex h-full min-h-[30rem] w-full cursor-pointer flex-col rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(28,28,32,0.96),rgba(17,17,20,0.96))] p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] transition-transform duration-300 ease-out hover:scale-[1.02] hover:border-white/16 hover:shadow-[0_18px_40px_rgba(0,0,0,0.24)]"
+              className="group flex h-full min-h-[31rem] w-full cursor-pointer flex-col rounded-[1.75rem] border border-white/10 bg-[linear-gradient(180deg,rgba(28,28,32,0.96),rgba(17,17,20,0.96))] p-5 shadow-[0_0_0_1px_rgba(255,255,255,0.03)] transition-all duration-300 ease-out hover:-translate-y-1 hover:border-white/16 hover:shadow-[0_18px_40px_rgba(0,0,0,0.24)]"
             >
-              <div className="flex flex-wrap gap-2">
+              <div className="h-1 w-16 rounded-full" style={{ backgroundColor: project.accent }} />
+
+              <div className="mt-5 flex flex-wrap gap-2">
                 {project.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="rounded-xl border border-white/16 px-3 py-1.5 text-xs text-[#d5d7e2]"
+                    className="rounded-xl border border-white/12 bg-white/[0.03] px-3 py-1.5 text-xs text-[#d5d7e2]"
                   >
                     {tag}
                   </span>
@@ -158,7 +180,10 @@ function Project() {
                 <h3 className="mx-auto mt-4 max-w-[11ch] text-2xl font-semibold leading-[1.05] tracking-tight text-[#f5f5f7] sm:text-xl">
                   {project.title}
                 </h3>
+               
               </div>
+
+             
 
               <div className="mt-auto">
                 <ProjectPreview image={project.image} title={project.title} accent={project.accent} />
@@ -171,4 +196,4 @@ function Project() {
   )
 }
 
-export default Project;
+export default Project

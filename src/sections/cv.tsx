@@ -44,8 +44,8 @@ function Cv() {
         }}
       />
 
-      <div className="relative z-10 mx-auto w-full max-w-5xl">
-        <div className="rounded-[2rem] border border-white/10 bg-[linear-gradient(180deg,rgba(23,24,35,0.94),rgba(10,10,16,0.96))] p-8 shadow-[0_18px_60px_rgba(0,0,0,0.28)] backdrop-blur-xl sm:p-10 lg:p-14">
+      <div className="relative z-10 mx-auto w-full max-w-6xl xl:max-w-7xl">
+        <div className="py-6 sm:py-8 lg:py-10">
           <div className="inline-flex items-center gap-2 rounded-full border border-[#6effc8]/20 px-4 py-1.5">
             <span className="h-1.5 w-1.5 rounded-full bg-[#6effc8]" />
             <span className="font-mono text-[11px] uppercase tracking-widest text-[#6effc8]">
@@ -129,6 +129,7 @@ function Cv() {
                 ))}
               </div>
             </div>
+
           </div>
         </div>
       </div>
